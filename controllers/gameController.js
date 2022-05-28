@@ -2,11 +2,16 @@ import connectDB from "../database.js"
 
 export async function getGames(req,res){
     const {name} = req.query
-    const db = await connectDB()
     try{
-        const {rows} = await db.query('SELECT * FROM games WHERE name=$1',[name])
+        const db = await connectDB()
+        if(name){
+            const {rows} = await db.query('SELECT * FROM games WHERE LOWER(name) LIKE LOWER($1)',[name + "%"])
+            return res.status(200).send(rows)
+        }
+        const {rows} = await db.query('SELECT * FROM games')
         res.status(200).send(rows)
     }catch(e){
+        console.log(e)
         res.sendStatus(500)
     }
 }
