@@ -8,7 +8,7 @@ export async function getClients(req, res){
         if(id){
             const {rows} = await db.query('SELECT * FROM customers WHERE id = $1;',[id])
             if(rows.length === 0){
-                return res.status(404).send("Customer not found")
+                return res.sendStatus(404)
             }
             return res.status(200).send(rows)
         }
@@ -30,7 +30,7 @@ export async function createClient(req, res){
     try{
         const db = await connectDB()
         if(rows.length !== 0){
-            return res.status(409).send("User already registered")
+            return res.sendStatus(409)
         }
         await db.query('INSERT INTO customers ("name", "cpf", "birthday", "phone") VALUES ($1, $2, $3, $4) ',[name, cpf, birthday,phone ])
         res.sendStatus(201)
