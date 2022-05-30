@@ -15,6 +15,6 @@ app.use(clientRouter)
 app.use(categoryRouter)
 app.use(gameRouter)
 
-app.listen(process.env.DB_PORT, () => {
-    console.log("Server running on port " + process.env.DB_PORT)
+app.listen(process.env.PORT, () => {
+    console.log("Server running on port " + process.env.PORT)
 })
