@@ -12,12 +12,15 @@ export default async function connectDB() {
     return chachedDB
   }
 
-  if (process.env.DB_URL) {
+  if (process.env.DATABASE_URL) {
     connectionParams = {
-      connectionString: process.env.DB_URL,
-      ssl: {
-          rejectUnauthorized: false
-      }
+      connectionString: process.env.DATABASE_URL
+    }
+  }
+
+  if(process.env.MODE === "PROD"){
+    connectionParams.ssl = {
+      rejectUnauthorized: false
     }
   }
 
