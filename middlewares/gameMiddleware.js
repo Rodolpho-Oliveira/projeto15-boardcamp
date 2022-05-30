@@ -4,10 +4,10 @@ import connectDB from "../database.js"
 export async function gamesValidation(req, res, next){
     const gameSchema = Joi.object({
         name: Joi.string().required(),
-        stockTotal: Joi.number().min(1),
-        pricePerDay: Joi.number().min(1),
-        categoryId: Joi.number(),
-        image: Joi.string()
+        stockTotal: Joi.number().min(1).required(),
+        pricePerDay: Joi.number().min(1).required(),
+        categoryId: Joi.number().required(),
+        image: Joi.string().required()
     })
     const validation = gameSchema.validate(req.body)
     if(validation.error){
