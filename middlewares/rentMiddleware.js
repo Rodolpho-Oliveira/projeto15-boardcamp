@@ -35,9 +35,8 @@ export async function customerRentValidation(req, res, next){
     if(daysRented <= 0){
         return res.sendStatus(400)
     }
-    const games = await db.query('SELECT * FROM games')
-    const rents = await db.query('SELECT * FROM rentals')
-    if(rents.rows.length > games.rows.length){
+    const rents = await db.query('SELECT * FROM rentals WHERE "gameId"=$1',[gameId])
+    if(rows[0].stockTotal <= rents.rows.length){
         return res.sendStatus(400)
     }  
     next()
