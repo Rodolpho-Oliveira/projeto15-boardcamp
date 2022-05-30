@@ -4,12 +4,8 @@ dotenv.config()
 
 let chachedDB = null;
 let connectionParams = {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-};
+ 
+}
 
 export default async function connectDB() {
   if (chachedDB) {
@@ -19,7 +15,10 @@ export default async function connectDB() {
   if (process.env.DB_URL) {
     connectionParams = {
       connectionString: process.env.DB_URL,
-    };
+      ssl: {
+          rejectUnauthorized: false
+      }
+    }
   }
 
   const { Pool } = pg
