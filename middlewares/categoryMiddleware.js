@@ -8,7 +8,7 @@ export async function categoryValidation(req, res, next){
     })
     const validation = categorySchema.validate(name)
     if(validation.error){
-        return res.status(400).send("Preencha corretamente!")
+        return res.sendStatus(400)
     }
     try{
         const db = await connectDB()

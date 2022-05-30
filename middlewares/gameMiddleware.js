@@ -11,7 +11,7 @@ export async function gamesValidation(req, res, next){
     })
     const validation = gameSchema.validate(req.body)
     if(validation.error){
-        res.status(400).send("Preencha corretamente!")
+        res.sendStatus(400)
     }
     try{
         const db = await connectDB()

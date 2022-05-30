@@ -14,12 +14,12 @@ export async function clientValidation(req, res, next){
     const validation = clientSchema.validate(req.body)
     if(validation.error){
         console.log(validation.error)
-        return res.status(400).send("Preencha corretamente")
+        return res.sendStatus(400)
     }
     try{
         const db = await connectDB()
         if(dayjs(birthday).format('YYYY-MM-DD') !== birthday){
-            return res.status(400).send('Wrong date')
+            return res.sendStatus(400)
         }
         const {rows} = await db.query('SELECT * FROM customers WHERE cpf=$1',[cpf])
         res.locals.rows = rows
